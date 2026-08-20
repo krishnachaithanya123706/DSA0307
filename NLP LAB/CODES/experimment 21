@@ -1,0 +1,48 @@
+sentence = "The intelligent student reads a book in the library."
+
+words = sentence.lower().replace(".", "").split()
+
+determiners = ["the", "a", "an"]
+adjectives = ["intelligent", "smart", "beautiful", "small", "big"]
+nouns = ["student", "book", "library", "teacher", "school", "car"]
+
+noun_phrases = []
+
+i = 0
+
+while i < len(words):
+    if words[i] in determiners:
+        phrase = words[i]
+        j = i + 1
+
+        if j < len(words) and words[j] in adjectives:
+            phrase += " " + words[j]
+            j += 1
+
+        if j < len(words) and words[j] in nouns:
+            phrase += " " + words[j]
+            noun_phrases.append(phrase)
+
+        i = j
+    else:
+        i += 1
+
+print("Sentence:", sentence)
+print("\nNoun Phrases and Their Meanings:")
+
+for phrase in noun_phrases:
+    parts = phrase.split()
+    noun = parts[-1]
+
+    meanings = {
+        "student": "a person who studies",
+        "book": "a written or printed work",
+        "library": "a place where books are kept",
+        "teacher": "a person who teaches",
+        "school": "an institution for education",
+        "car": "a motor vehicle"
+    }
+
+    print("Noun Phrase:", phrase)
+    print("Meaning:", meanings[noun])
+    print()

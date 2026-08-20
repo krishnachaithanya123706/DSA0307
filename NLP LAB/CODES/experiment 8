@@ -1,0 +1,24 @@
+pos_prob = {
+    "I": {"PRON": 1.0},
+    "eat": {"VERB": 0.8, "NOUN": 0.2},
+    "an": {"DET": 1.0},
+    "apple": {"NOUN": 0.9, "VERB": 0.1},
+    "you": {"PRON": 1.0},
+    "run": {"VERB": 0.7, "NOUN": 0.3},
+    "fast": {"ADV": 0.6, "ADJ": 0.4}
+}
+def pos_tag(sentence):
+    words = sentence.split()
+    tagged = []
+    for word in words:
+        if word in pos_prob:
+            tag = max(pos_prob[word], key=pos_prob[word].get)
+        else:
+            tag = "UNK"   
+        tagged.append((word, tag))
+    return tagged
+sentence = input("Enter a sentence: ")
+result = pos_tag(sentence)
+print("\nTagged Sentence:")
+for word, tag in result:
+    print(f"{word} -> {tag}")

@@ -1,0 +1,62 @@
+def parse_expression(expression):
+    expression = expression.strip()
+
+    if expression.startswith("NOT "):
+        return {
+            "type": "NOT",
+            "expression": parse_expression(expression[4:])
+        }
+
+    if " AND " in expression:
+        parts = expression.split(" AND ", 1)
+        return {
+            "type": "AND",
+            "left": parse_expression(parts[0]),
+            "right": parse_expression(parts[1])
+        }
+
+    if " OR " in expression:
+        parts = expression.split(" OR ", 1)
+        return {
+            "type": "OR",
+            "left": parse_expression(parts[0]),
+            "right": parse_expression(parts[1])
+        }
+
+    if "(" in expression and expression.endswith(")"):
+        predicate = expression[:expression.index("(")].strip()
+        arguments = expression[expression.index("(") + 1:-1].split(",")
+
+        return {
+            "type": "PREDICATE",
+            "name": predicate,
+            "arguments": [arg.strip() for arg in arguments]
+        }
+
+    return {
+        "type": "INVALID",
+        "value": expression
+    }
+
+
+def display(tree, level=0):
+    print("  " * level + tree["type"])
+
+    if tree["type"] == "PREDICATE":
+        print("  " * (level + 1) + "Name: " + tree["name"])
+        print("  " * (level + 1) + "Arguments: " + str(tree["arguments"]))
+
+    elif tree["type"] == "NOT":
+        display(tree["expression"], level + 1)
+
+    elif tree["type"] in ["AND", "OR"]:
+        display(tree["left"], level + 1)
+        display(tree["right"], level + 1)
+
+
+expression = input("Enter FOPC expression: ")
+
+tree = parse_expression(expression)
+
+print("\nParse Tree:")
+display(tree)

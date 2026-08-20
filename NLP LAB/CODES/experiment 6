@@ -1,0 +1,21 @@
+import random
+text = "I love python because python is easy and python is powerful"
+words = text.split()
+bigram = {}
+for i in range(len(words) - 1):
+    word = words[i]
+    next_word = words[i + 1]
+    if word not in bigram:
+        bigram[word] = []
+    bigram[word].append(next_word)
+current = "I"
+result = [current]
+for i in range(10):
+    if current in bigram:
+        current = random.choice(bigram[current])
+        result.append(current)
+    else:
+        break
+
+print("Generated Text:")
+print(" ".join(result))

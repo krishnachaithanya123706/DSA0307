@@ -1,0 +1,35 @@
+from nltk.corpus import wordnet
+
+def lesk(context, word):
+    context_words = set(context.lower().split())
+    best_sense = None
+    max_overlap = 0
+
+    for sense in wordnet.synsets(word):
+        definition_words = set(sense.definition().lower().split())
+        
+        for example in sense.examples():
+            definition_words.update(example.lower().split())
+
+        overlap = len(context_words.intersection(definition_words))
+
+        if overlap > max_overlap:
+            max_overlap = overlap
+            best_sense = sense
+
+    return best_sense
+
+sentence = "I went to the bank to deposit money"
+word = "bank"
+
+sense = lesk(sentence, word)
+
+print("Sentence:", sentence)
+print("Word:", word)
+
+if sense:
+    print("Best Sense:", sense.name())
+    print("Definition:", sense.definition())
+    print("Example:", sense.examples())
+else:
+    print("No sense found")

@@ -1,0 +1,48 @@
+import nltk
+from nltk import CFG
+from nltk.parse import ChartParser
+
+grammar = CFG.fromstring("""
+S -> NP_SG VP_SG
+S -> NP_PL VP_PL
+
+NP_SG -> Det_SG N_SG
+NP_PL -> Det_PL N_PL
+
+VP_SG -> V_SG
+VP_PL -> V_PL
+
+Det_SG -> 'the' | 'a'
+Det_PL -> 'the'
+
+N_SG -> 'boy' | 'girl' | 'cat'
+N_PL -> 'boys' | 'girls' | 'cats'
+
+V_SG -> 'runs' | 'eats' | 'plays'
+V_PL -> 'run' | 'eat' | 'play'
+""")
+
+parser = ChartParser(grammar)
+
+sentences = [
+    "the boy runs",
+    "the boys run",
+    "the girl eats",
+    "the girls eat",
+    "the cat play",
+    "the boys runs"
+]
+
+for sentence in sentences:
+    words = sentence.split()
+    trees = list(parser.parse(words))
+
+    print("Sentence:", sentence)
+
+    if trees:
+        print("Agreement: Correct")
+        trees[0].pretty_print()
+    else:
+        print("Agreement: Incorrect")
+
+    print()

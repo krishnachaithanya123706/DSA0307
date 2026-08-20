@@ -1,0 +1,28 @@
+input_string = ""
+index = 0
+def match(token):
+    global index
+    if input_string[index:index+len(token)] == token:
+        index += len(token)
+        return True
+    return False
+def T():
+    return match("id")
+def E_prime():
+    global index
+    if index < len(input_string) and input_string[index] == '+':
+        index += 1
+        if T():
+            return E_prime()
+        return False
+    return True    # ε production
+def E():
+    if T():
+        return E_prime()
+    return False
+input_string = input("Enter expression: ").replace(" ", "")
+index = 0
+if E() and index == len(input_string):
+    print("String Accepted")
+else:
+    print("String Rejected")

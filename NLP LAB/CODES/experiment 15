@@ -1,0 +1,30 @@
+import nltk
+from nltk import PCFG
+from nltk.parse import ViterbiParser
+
+grammar = PCFG.fromstring("""
+S -> NP VP [1.0]
+NP -> Det N [0.6] | Det Adj N [0.4]
+VP -> V NP [0.7] | V [0.3]
+Det -> 'the' [0.6] | 'a' [0.4]
+N -> 'cat' [0.5] | 'dog' [0.5]
+Adj -> 'big' [1.0]
+V -> 'sees' [0.6] | 'runs' [0.4]
+""")
+
+sentence = "the big dog sees a cat".split()
+
+parser = ViterbiParser(grammar)
+
+print("Sentence:", " ".join(sentence))
+print("\nParse Tree:")
+
+trees = list(parser.parse(sentence))
+
+if trees:
+    for tree in trees:
+        print(tree)
+        print("\nProbability:", tree.prob())
+        tree.pretty_print()
+else:
+    print("No parse found.")

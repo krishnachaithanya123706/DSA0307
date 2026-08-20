@@ -1,0 +1,43 @@
+text = input("Enter English text: ")
+
+translations = {
+    "hello": "bonjour",
+    "good morning": "bonjour",
+    "good evening": "bonsoir",
+    "how are you": "comment allez-vous",
+    "thank you": "merci",
+    "goodbye": "au revoir",
+    "i am fine": "je vais bien",
+    "i love python": "j'aime python",
+    "i am a student": "je suis un étudiant",
+    "what is your name": "comment vous appelez-vous"
+}
+
+text = text.lower().strip()
+
+if text in translations:
+    print("English:", text)
+    print("French:", translations[text])
+else:
+    words = text.split()
+    result = []
+
+    word_dictionary = {
+        "hello": "bonjour",
+        "i": "je",
+        "am": "suis",
+        "a": "un",
+        "student": "étudiant",
+        "good": "bon",
+        "morning": "matin",
+        "thank": "merci",
+        "you": "vous",
+        "love": "aime",
+        "python": "python"
+    }
+
+    for word in words:
+        result.append(word_dictionary.get(word, word))
+
+    print("English:", text)
+    print("French:", " ".join(result))

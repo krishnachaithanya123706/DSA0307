@@ -1,0 +1,24 @@
+import re
+def pos_tag(sentence):
+    words = sentence.split()
+    for word in words:
+        if re.fullmatch(r"(I|you|he|she|we|they|it)", word, re.IGNORECASE):
+            tag = "PRON"
+        elif re.fullmatch(r"(a|an|the)", word, re.IGNORECASE):
+            tag = "DET"
+        elif re.fullmatch(r"\d+", word):
+            tag = "NUM"
+        elif re.fullmatch(r".*ing", word, re.IGNORECASE):
+            tag = "VERB"
+        elif re.fullmatch(r".*ed", word, re.IGNORECASE):
+            tag = "VERB"
+        elif re.fullmatch(r".*ly", word, re.IGNORECASE):
+            tag = "ADV"
+        elif re.fullmatch(r".*ous|.*ful|.*able|.*ive", word, re.IGNORECASE):
+            tag = "ADJ"
+        else:
+            tag = "NOUN"   # Default tag
+        print(f"{word} -> {tag}")
+sentence = input("Enter a sentence: ")
+print("\nPOS Tags:")
+pos_tag(sentence)

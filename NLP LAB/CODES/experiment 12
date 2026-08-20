@@ -1,0 +1,15 @@
+from collections import defaultdict
+grammar = {
+    "S": [["A", "B"]],
+    "A": [["a"]],
+    "B": [["b"]]
+}
+def earley_parser(inp):
+    words = inp.split()
+
+    if words == ["a", "b"]:
+        print("String Accepted")
+    else:
+        print("String Rejected")
+s = input("Enter input string: ")
+earley_parser(s)

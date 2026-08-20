@@ -1,0 +1,38 @@
+text = "Ravi went to the market. He bought a book. The book was expensive. He returned home."
+
+sentences = text.split(".")
+pronouns = ["he", "she", "it", "they", "him", "her", "them"]
+
+last_person = ""
+last_object = ""
+
+print("Text:", text)
+print("\nReference Resolution:")
+
+for sentence in sentences:
+    words = sentence.strip().split()
+
+    if not words:
+        continue
+
+    for word in words:
+        clean_word = word.lower().strip(",.!?")
+
+        if clean_word in pronouns:
+            if clean_word in ["he", "she", "him", "her", "they", "them"]:
+                reference = last_person
+            else:
+                reference = last_object
+
+            if reference:
+                print(clean_word, "->", reference)
+
+    for word in words:
+        clean_word = word.strip(",.!?")
+
+        if clean_word.lower() not in pronouns:
+            if clean_word[0].isupper():
+                last_person = clean_word
+
+    if "book" in [w.lower().strip(",.!?") for w in words]:
+        last_object = "book"

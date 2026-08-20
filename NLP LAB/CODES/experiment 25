@@ -1,0 +1,21 @@
+prompt = input("Enter your prompt: ")
+
+responses = {
+    "artificial intelligence": "Artificial Intelligence is a technology that enables machines to learn, reason, and perform tasks that normally require human intelligence.",
+    "machine learning": "Machine Learning is a branch of Artificial Intelligence that allows computers to learn patterns from data and make predictions.",
+    "python": "Python is a popular programming language known for its simple syntax and wide range of applications.",
+    "natural language processing": "Natural Language Processing enables computers to understand, process, and generate human language."
+}
+
+found = False
+
+for key in responses:
+    if key in prompt.lower():
+        print("\nGenerated Text:")
+        print(responses[key])
+        found = True
+        break
+
+if not found:
+    print("\nGenerated Text:")
+    print("This is a generated response based on the given prompt:", prompt)

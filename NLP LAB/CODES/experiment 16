@@ -1,0 +1,26 @@
+text = "Sundar Pichai is the CEO of Google. He visited Chennai on January 15, 2025."
+
+words = text.replace(".", "").split()
+
+persons = ["Sundar Pichai"]
+organizations = ["Google"]
+locations = ["Chennai"]
+dates = ["January 15, 2025"]
+
+print("Named Entities:")
+
+for person in persons:
+    if person in text:
+        print(person, "-> PERSON")
+
+for organization in organizations:
+    if organization in text:
+        print(organization, "-> ORGANIZATION")
+
+for location in locations:
+    if location in text:
+        print(location, "-> LOCATION")
+
+for date in dates:
+    if date in text:
+        print(date, "-> DATE")

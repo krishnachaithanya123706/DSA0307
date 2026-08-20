@@ -1,0 +1,40 @@
+text = "Python is a programming language. Python is used for data analysis. Data analysis helps find useful information. Useful information supports better decisions."
+
+sentences = text.split(".")
+
+sentences = [s.strip().lower() for s in sentences if s.strip()]
+
+print("Text:")
+print(text)
+
+print("\nSentence Similarity:")
+
+total_score = 0
+
+for i in range(len(sentences) - 1):
+    words1 = set(sentences[i].split())
+    words2 = set(sentences[i + 1].split())
+
+    common_words = words1.intersection(words2)
+
+    if len(words1.union(words2)) > 0:
+        score = len(common_words) / len(words1.union(words2))
+    else:
+        score = 0
+
+    total_score += score
+
+    print("\nSentence", i + 1, "and Sentence", i + 2)
+    print("Common Words:", common_words)
+    print("Similarity Score:", round(score, 2))
+
+average_score = total_score / (len(sentences) - 1)
+
+print("\nOverall Coherence Score:", round(average_score, 2))
+
+if average_score >= 0.25:
+    print("Coherence: High")
+elif average_score >= 0.10:
+    print("Coherence: Medium")
+else:
+    print("Coherence: Low")
